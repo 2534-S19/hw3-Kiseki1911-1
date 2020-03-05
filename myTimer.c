@@ -37,5 +37,5 @@ bool timer0Expired(void)
 // Since we only have two timers, later in the course we will create software timers that use a common time base.
 bool timer1Expired(void)
 {
-
+    return (Timer32_getValue(TIMER32_1_BASE)==0);
 }

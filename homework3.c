@@ -32,7 +32,7 @@ int main(void)
 
         // Update the color of the Boosterpack LED using count1 as the index.
         // YOU MUST WRITE THIS FUNCTION BELOW.
-        changeBoosterpackLED(count1);
+
 
         // TODO: If Timer0 has expired, increment count0.
         // YOU MUST WRITE timer0expired IN myTimer.c
@@ -46,9 +46,12 @@ int main(void)
         //changeLaunchpadLED2(count1);
         // TODO: If Timer1 has expired, update the button history from the pushbutton value.
         // YOU MUST WRITE timer1expired IN myTimer.c
-        if (timer1Expired())
+        if (timer1Expired()&&(checkStatus_BoosterpackS1()==0))
         {
-
+            count1++;
+            changeBoosterpackLED(count1);
+            Timer32_setCount(TIMER32_1_BASE,300000);
+            Timer32_startTimer(TIMER32_1_BASE,true);
         }
 
 
@@ -128,7 +131,52 @@ void changeLaunchpadLED2(unsigned int count)
 // This is essentially a copy of the previous function, using a different LED
 void changeBoosterpackLED(unsigned int count)
 {
+    unsigned int temp = count %8;
+    switch(temp)
+    {
+    case 0:
+        turnOff_BoosterpackLEDRed();
+          turnOff_BoosterpackLEDGreen();
+          turnOff_BoosterpackLEDBlue();
+        break;
+    case 1:
+        //red
+          turnOn_BoosterpackLEDRed();
+          turnOff_BoosterpackLEDGreen();
+          turnOff_BoosterpackLEDBlue();
+        break;
+    case 2:
+          turnOff_BoosterpackLEDRed();
+          turnOn_BoosterpackLEDGreen();
+          turnOff_BoosterpackLEDBlue();
+        break;
+    case 3:
+          turnOn_BoosterpackLEDRed();
+          turnOn_BoosterpackLEDGreen();
+          turnOff_BoosterpackLEDBlue();
+        break;
+    case 4:
+          turnOff_BoosterpackLEDRed();
+          turnOff_BoosterpackLEDGreen();
+          turnOn_BoosterpackLEDBlue();
+        break;
+    case 5:
+          turnOn_BoosterpackLEDRed();
+          turnOff_BoosterpackLEDGreen();
+          turnOn_BoosterpackLEDBlue();
+        break;
+    case 6:
+          turnOff_BoosterpackLEDRed();
+          turnOn_BoosterpackLEDGreen();
+          turnOn_BoosterpackLEDBlue();
+        break;
+    case 7:
+          turnOn_BoosterpackLEDRed();
+          turnOn_BoosterpackLEDGreen();
+          turnOn_BoosterpackLEDBlue();
+        break;
 
+    }
 }
 
 // TODO: Create a button state machine.
